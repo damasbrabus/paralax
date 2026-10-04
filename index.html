@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Efekti - Labo Brabus</title>
+    <style>
+        /* SASS/CSS uslublari */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
+            color: #ffffff;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .layer {
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            top: -5%;
+            left: -5%;
+            background-size: cover;
+            background-position: center;
+            will-change: transform;
+        }
+
+        /* Qatlamlar uchun chuqurlik (depth) sozlamalari */
+        .layer-sky {
+            background: linear-gradient(to bottom, #1a102f, #3b1d31, #d65a31);
+            z-index: 1;
+        }
+
+        .layer-mountains {
+            background-image: url('image_50a0bc.jpg'); /* Asl rasm yoki kesilgan qism */
+            filter: brightness(0.7);
+            z-index: 2;
+        }
+
+        .layer-car {
+            background-image: url('image.png');
+            background-size: cover;
+            z-index: 3;
+            transform: scale(1.05);
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <ul id="scene">
+            <!-- Orqa fon osmon va tog'lar qatlami -->
+            <li class="layer" data-depth="0.10"><div class="layer layer-sky"></div></li>
+            <!-- Tog'lar va uzoqdagi shahar manzarasi -->
+            <li class="layer" data-depth="0.30"><div class="layer layer-mountains" style="background-position: center bottom;"></div></li>
+            <!-- Oldingi fondagi mashina qatlami -->
+            <li class="layer" data-depth="0.60"><div class="layer layer-car"></div></li>
+        </ul>
+    </div>
+
+    <!-- Parallax JS Kutubxonasi (Matthew Wagerfield uslubi) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <script>
+        // Sahna elementini ishga tushirish
+        var scene = document.getElementById('scene');
+        var parallaxInstance = new Parallax(scene, {
+            relativeInput: true,
+            hoverOnly: false,
+            scalarX: 15,
+            scalarY: 15
+        });
+    </script>
+</body>
+</html>
